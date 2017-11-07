@@ -1,7 +1,7 @@
 # 国家法定节假日API
 ---
 
-参考arccode的API设计规范，在此基础上做了相应修改。
+参考[arccode](https://github.com/arccode)的API设计规范，在此基础上做了相应修改。
 
 ## API 设计理念
 
@@ -13,26 +13,28 @@
 
 3. URL 命名规则，对于资源无法使用一个单数名词表示的情况，我使用下划线 ***_*** 连接
 
-    资源采用名词命名，e.g：产品 -> product
+    资源采用名词命名，e.g：节假日 -> holiday
 
-    新增资源，e.g：新增产品 url -> /product, verb -> POST
+    新增节假日 url -> /holiday, verb -> POST
 
-    修改资源，e.g：修改产品 url -> /products/{id}, verb -> PUT
+    修改节假日 url -> /holidays/{id}, verb -> PUT
 
-    资源详情，e.g：指定产品详情 url -> /products/{id}, verb -> GET
+    节假日详情 url -> /holidays/{id}, verb -> GET
 
-    删除资源，e.g：删除产品 url -> /products/{id}, verb -> DELETE
+    删除节假日 url -> /holidays/{id}, verb -> DELETE
 
-    资源列表，e.g：产品列表 url -> /products, verb -> GET
+    节假日列表 url -> /holidays, verb -> GET
 
-    资源关联关系，e.g：收藏产品 url -> /products/{id}/star, verb -> PUT
-
-    资源关联关系，e.g：删除收藏产品 url -> /products/{id}/star, verb -> DELETE
 
 4. API URL中增加版本号，如：
 
-    GET https://url/api/v1/products
+    v1版本：
     
+    ```GET https://url/api/v1/nationalholidays/cn/2017```
+    
+    v2版本：
+    
+    ```GET https://url/api/v2/nationalholidays/cn/2017```
 
 ## JSON 结构
 
