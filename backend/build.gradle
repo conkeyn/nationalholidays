@@ -47,6 +47,7 @@ dependencies {
     compile("io.springfox:springfox-swagger-ui:2.4.0")
     compile("org.apache.poi:poi-ooxml:3.17")
     compile("com.opencsv:opencsv:4.0")
+    compile("com.github.qiujiayu:autoload-cache-spring-boot-starter:6.7")
     compileOnly('org.projectlombok:lombok')
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
