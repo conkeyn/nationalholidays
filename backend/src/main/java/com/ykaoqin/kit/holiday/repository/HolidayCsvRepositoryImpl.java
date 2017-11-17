@@ -1,5 +1,6 @@
 package com.ykaoqin.kit.holiday.repository;
 
+import com.jarvis.cache.annotation.Cache;
 import com.ykaoqin.kit.holiday.model.HolidayDay;
 import com.ykaoqin.kit.util.CsvFileUtils;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ public class HolidayCsvRepositoryImpl implements HolidayCsvRepository {
     public final static char Sep_Underline = '_';
 
     @Override
+    @Cache(expire = 60, expireExpression = "null == #retVal ? 60: 60", key = "'holiday-day-' + #args[0] +'-'+ #args[1]")
     public List<HolidayDay> getHoldiayDays(String nation, Integer year) {
         try {
             Integer iYear = year;

@@ -1,0 +1,44 @@
+buildscript {
+  repositories {
+    maven { url "https://plugins.gradle.org/m2/" }
+  }
+  dependencies {
+    classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+  }
+}
+
+apply plugin: 'com.moowork.node'
+
+node {
+  version = '8.9.0'
+  npmVersion = '5.5.1'
+  yarnVersion = '1.3.2'
+}
+
+task cnpmInstall(type: NpmTask) {
+  group = 'node'
+  args = ['install', '--registry=http://registry.cnpmjs.org']
+}
+
+//调用npm run build命令的Gradle任务
+task npmBuild(type: NpmTask, dependsOn: cnpmInstall) {
+  group = 'node'
+  args = ['run', 'build']
+}
+
+//调用npm run dev
+task npmDev(type: NpmTask, dependsOn: cnpmInstall) {
+  group = 'node'
+  args = ['run', 'dev']
+}
+
+task yarnBuild(type: YarnTask, dependsOn: 'yarn') {
+  args = ['run', 'build']
+}
+
+task yarnDev(type: YarnTask, dependsOn: 'yarn') {
+  args = ['run', 'dev']
+}
+
+//Gradle的java插件的jar任务，依赖npmBuild,即web子模块打jar包前必须运行npm run build
+jar.dependsOn(yarnBuild)

@@ -3,39 +3,28 @@ buildscript {
         springBootVersion = '2.0.0.M6'
     }
     repositories {
-        // mavenLocal()
         mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven { url "http://repo.spring.io/release" }
         maven { url "http://repo.spring.io/milestone" }
-        // maven { url "http://repo.spring.io/snapshot" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-version = '1.0.0'
-group = 'com.xkaoqin.kit'
-
 repositories {
-    // mavenLocal()
     mavenCentral()
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     maven { url "http://repo.spring.io/release" }
-    maven { url "http://repo.spring.io/milestone" }
-    // maven { url "http://repo.spring.io/snapshot" }
+    maven { url "httpgr://repo.spring.io/milestone" }
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 dependencies {
+    // compile project(':frontend')
     compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-webflux") {
@@ -48,6 +37,7 @@ dependencies {
     compile("org.apache.poi:poi-ooxml:3.17")
     compile("com.opencsv:opencsv:4.0")
     compile("com.github.qiujiayu:autoload-cache-spring-boot-starter:6.7")
+    compile("org.apache.commons:commons-pool2")
     compileOnly('org.projectlombok:lombok')
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
