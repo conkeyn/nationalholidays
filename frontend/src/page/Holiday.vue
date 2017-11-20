@@ -31,7 +31,8 @@
       }
     },
     mounted () {
-      this.axios.get('/api/v1/nationalholidays/cn').then((response) => {
+      var year = this.$route.params.year;
+      this.axios.get('/api/v1/nationalholidays/cn/'+ year).then((response) => {
         this.holidays = response.data.data;
       }, (error) => {
         console.log(error)

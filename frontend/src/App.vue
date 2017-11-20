@@ -16,9 +16,9 @@
     <main>
       <!-- 左侧导航 -->
       <div class="main-left">
-        <el-menu default-active="/Holiday" class="el-menu-vertical-demo" :router="true">
-          <el-menu-item index="/Holiday" :class="{'isActive': active}">2017</el-menu-item>
-          <el-menu-item index="/Holiday" :class="{'isActive': !active}">2016</el-menu-item>
+        <el-menu default-active="/Holiday/2017" class="el-menu-vertical-demo" :router="true">
+          <el-menu-item index="/Holiday/2017" :class="{'isActive': active}">2017</el-menu-item>
+          <el-menu-item index="/Holiday/2016" :class="{'isActive': !active}">2016</el-menu-item>
         </el-menu>
       </div>
 
