@@ -4,9 +4,9 @@
     <header class="header">
       <el-row>
         <el-col :span="24">
-          <el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="">
-            <el-menu-item index="1">中国</el-menu-item>
-            <el-menu-item index="2">America</el-menu-item>
+          <el-menu default-active="cn" class="el-menu-demo" mode="horizontal" @select="selectNation">
+            <el-menu-item index="cn">中国</el-menu-item>
+            <el-menu-item index="us">America</el-menu-item>
           </el-menu>
         </el-col>
       </el-row>
@@ -16,10 +16,17 @@
     <main>
       <!-- 左侧导航 -->
       <div class="main-left">
-        <el-menu default-active="/Holiday/2017" class="el-menu-vertical-demo" :router="true">
+        <!--
+        <el-menu default-active="/Holiday/2017" class="el-menu-vertical-demo" @select="selectYear" :router="true">
           <el-menu-item index="/Holiday/2017" :class="{'isActive': active}">2017</el-menu-item>
           <el-menu-item index="/Holiday/2016" :class="{'isActive': !active}">2016</el-menu-item>
         </el-menu>
+        -->
+        <ul class="el-menu el-menu-vertical-demo" ref="menuCollapsed">
+          <li v-for="(year,index) in years"class="el-submenu">
+            <div class="el-submenu__title el-menu-item" style="padding-left: 20px;height: 56px;line-height: 56px;padding: 0 20px;" @click="selectYear(year)">{{ year }}</div>
+          </li>
+        </ul>
       </div>
 
       <!-- 右侧主内容区 -->
@@ -35,7 +42,27 @@ export default {
   name: 'app',
   data: function (){
     return {
-      active:true
+      years: [2017,2016]
+    }
+  },
+  methods: {
+    selectNation(nation){
+      //this.$store.commit('NATION', index);
+      this.$store.state.nation = nation;
+
+      var year = this.$store.state.year;
+      this.refreshData(nation, year);
+    },
+    selectYear(year){
+      this.$store.state.year = year;
+
+      var nation = this.$store.state.nation;
+      this.refreshData(nation, year);
+    },
+    refreshData(nation, year) {
+      this.$router.push({
+        path: '/Holiday/'+ nation +'/'+ year
+      });
     }
   }
 }

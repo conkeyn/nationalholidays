@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Locale;
 
 @Api("HolidayAPI")
 @RestController
@@ -37,6 +39,7 @@ public class HolidayAPI {
     @GetMapping("/{nation}")
     ServiceResponse getHolidayDays(@PathVariable("nation") @ApiParam(name = "nation", value = "国别", required = true, example = "cn, tw") String nation) {
         if (nation != null) {
+            setLocale(nation);
             List<HolidayDay> holidayDays = holidayCsvRepository.getHoldiayDays(nation, null);
             return new ServiceResponse(200, "OK", holidayDays);
         }
@@ -47,6 +50,7 @@ public class HolidayAPI {
     @GetMapping("/{nation}/{year}")
     ServiceResponse getHolidayDays(@PathVariable("nation") @ApiParam(name = "nation", value = "国别", required = true, example = "cn, tw") String nation, @PathVariable("year") @ApiParam(name = "year", value = "年份", example = "2016, 2017") Integer year) {
         if (nation != null && year != null) {
+            setLocale(nation);
             List<HolidayDay> holidayDays = holidayCsvRepository.getHoldiayDays(nation, year);
             return new ServiceResponse(200, "OK", holidayDays);
         }
@@ -87,6 +91,18 @@ public class HolidayAPI {
             }
         }
         return null;
+    }
+
+    private void setLocale(String nation) {
+        Locale preferredLocale = null;
+        String upperNation = nation.toUpperCase();
+        if ("CN".equals(upperNation)) {
+            preferredLocale = new Locale("zh", upperNation);
+        }
+        else if ("US".equals(upperNation)) {
+            preferredLocale = new Locale("en", upperNation);
+        }
+        LocaleContextHolder.setLocale(preferredLocale);
     }
 
     public static Workbook createExcel() {

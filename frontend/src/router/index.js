@@ -7,7 +7,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path:'/Holiday/:year',
+      path:'/Holiday/:nation/:year',
       component:Holiday
     }
   ]
