@@ -33,10 +33,12 @@ task npmDev(type: NpmTask, dependsOn: cnpmInstall) {
 }
 
 task yarnBuild(type: YarnTask, dependsOn: 'yarn') {
+  group = 'node'
   args = ['run', 'build']
 }
 
 task yarnDev(type: YarnTask, dependsOn: 'yarn') {
+  group = 'node'
   args = ['run', 'dev']
 }
 
