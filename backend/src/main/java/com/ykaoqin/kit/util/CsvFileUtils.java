@@ -7,9 +7,7 @@ import com.ykaoqin.kit.holiday.model.HolidayDay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -46,18 +44,30 @@ public class CsvFileUtils {
      */
     public static List<HolidayDay> getHolidayDaysFromCsvFile(File csvFile) {
         List<HolidayDay> holidayDays = Lists.newLinkedList();
+        CSVReader reader = null;
         try {
-            CSVReader reader = new CSVReader(new FileReader(csvFile));
+            InputStreamReader streamReader = new InputStreamReader(new FileInputStream(csvFile), "UTF-8");
+            reader = new CSVReader(streamReader);
             reader.iterator().forEachRemaining(e -> {
                 HolidayDay holidayDay = new HolidayDay();
                 holidayDay.setDay(Date.from(LocalDate.parse(e[0], formatter).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
                 holidayDay.setName(e[1]);
                 holidayDay.setProp(HolidayDateProperty.valueOf(Integer.valueOf(e[2])));
                 holidayDay.setDesc(e[3]);
+                logger.debug("name: " + e[1] + ", desc: " + e[3]);
                 holidayDays.add(holidayDay);
             });
+        } catch (UnsupportedEncodingException e) {
+            logger.error("CSVReader read error:", e);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("CSVReader read error:", e);
+        } finally {
+            try {
+                if (reader != null)
+                    reader.close();
+            } catch (IOException e) {
+                logger.error("CSVReader close error:", e);
+            }
         }
         return holidayDays;
     }

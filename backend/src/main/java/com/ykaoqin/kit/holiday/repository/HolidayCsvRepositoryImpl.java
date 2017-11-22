@@ -17,7 +17,7 @@ public class HolidayCsvRepositoryImpl implements HolidayCsvRepository {
     public final static char Sep_Underline = '_';
 
     @Override
-    @Cache(expire = 60, expireExpression = "null == #retVal ? 60: 60", key = "'holiday-day-' + #args[0] +'-'+ #args[1]")
+    @Cache(expire = 3600, expireExpression = "null == #retVal ? 60: 3600", key = "'holiday-day-' + #args[0] +'-'+ #args[1]")
     public List<HolidayDay> getHoldiayDays(String nation, Integer year) {
         try {
             Integer iYear = year;

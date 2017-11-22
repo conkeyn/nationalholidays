@@ -23,6 +23,8 @@ repositories {
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
 dependencies {
     compile project(':frontend')
     compile("org.springframework.boot:spring-boot-starter")
