@@ -30,7 +30,7 @@ import java.util.Locale;
 
 @Api("HolidayAPI")
 @RestController
-@RequestMapping("/api/v1/nationalholidays/")
+@RequestMapping("/v1/nationalholidays/")
 public class HolidayAPI {
     @Autowired
     private HolidayCsvRepository holidayCsvRepository;

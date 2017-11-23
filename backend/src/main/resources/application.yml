@@ -6,6 +6,9 @@ spring:
     active: dev
   messages:
     basename: i18n/messages
+server:
+  servlet:
+    contextPath: /api
 
 ---
 # 开发环境配置
@@ -14,6 +17,8 @@ spring:
 logging:
   level:
     com.ykaoqin.kit: DEBUG
+data:
+  path: d:/env/workspace_idea/nationalholidays/backend/src/main/resources/
 
 ---
 # 测试环境配置
@@ -22,6 +27,8 @@ spring:
 logging:
   level:
     com.ykaoqin.kit: DEBUG
+data:
+  path: d:/env/workspace_idea/nationalholidays/backend/src/main/resources/
 
 ---
 # 生产环境配置
@@ -32,3 +39,5 @@ server:
 logging:
   level:
     com.ykaoqin.kit: INFO
+data:
+  path: /app/boot/
