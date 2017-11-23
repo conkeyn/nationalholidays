@@ -41,7 +41,7 @@ public class HolidayAPI {
         if (nation != null) {
             setLocale(nation);
             List<HolidayDay> holidayDays = holidayCsvRepository.getHoldiayDays(nation, null);
-            return new ServiceResponse(200, "OK", holidayDays);
+            return new ServiceResponse<List<HolidayDay>>(200, "OK", holidayDays);
         }
         return new ServiceResponse(404, "国家法定节假日未找到！");
     }
@@ -52,7 +52,7 @@ public class HolidayAPI {
         if (nation != null && year != null) {
             setLocale(nation);
             List<HolidayDay> holidayDays = holidayCsvRepository.getHoldiayDays(nation, year);
-            return new ServiceResponse(200, "OK", holidayDays);
+            return new ServiceResponse<List<HolidayDay>>(200, "OK", holidayDays);
         }
         return new ServiceResponse(404, "国家法定节假日未找到！");
     }

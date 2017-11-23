@@ -14,6 +14,7 @@ public class ServiceResponse<T> {
     @ApiModelProperty(value = "具体内容对象")
     private T data;
 
+    @SuppressWarnings("unchecked")
     public ServiceResponse(Integer code, String message) {
         this.meta = new Meta(code, message);
         this.data = (T)new Object();

@@ -9,6 +9,12 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+
     repositories {
         mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}

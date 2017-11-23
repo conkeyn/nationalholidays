@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -50,11 +49,14 @@ public class CsvFileUtils {
             reader = new CSVReader(streamReader);
             reader.iterator().forEachRemaining(e -> {
                 HolidayDay holidayDay = new HolidayDay();
-                holidayDay.setDay(Date.from(LocalDate.parse(e[0], formatter).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+
+                LocalDate localDate = LocalDate.parse(e[0], formatter);
+                holidayDay.setDay(Date.valueOf(localDate));
+
                 holidayDay.setName(e[1]);
                 holidayDay.setProp(HolidayDateProperty.valueOf(Integer.valueOf(e[2])));
                 holidayDay.setDesc(e[3]);
-                logger.debug("name: " + e[1] + ", desc: " + e[3]);
+                logger.debug("date: "+ Date.valueOf(localDate) +", name: " + e[1] + ", desc: " + e[3]);
                 holidayDays.add(holidayDay);
             });
         } catch (UnsupportedEncodingException e) {
