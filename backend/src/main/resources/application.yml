@@ -34,8 +34,6 @@ data:
 # 生产环境配置
 spring:
   profiles: prod
-server:
-  port: 80
 logging:
   level:
     com.ykaoqin.kit: INFO
